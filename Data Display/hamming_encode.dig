@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>External</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>hamming_encode</string>
+        </entry>
+        <entry>
+          <string>applicationType</string>
+          <appType>IVERILOG</appType>
+        </entry>
+        <entry>
+          <string>externalInputs</string>
+          <string>A:6,Y1:10</string>
+        </entry>
+        <entry>
+          <string>Width</string>
+          <int>10</int>
+        </entry>
+        <entry>
+          <string>Code</string>
+          <string>//hamming_encode
+module hamming_encode(
+    input [5:0] A,
+    output [9:0] Y,
+    input [9:0] Y1,
+    output [3:0] Error
+);
+assign Y[0] = ((A[0] ^ A[1]) ^ (A[3] ^ A[4]));
+assign Y[1] = ((A[0] ^ A[2]) ^ (A[3] ^ A[5]));
+assign Y[2] = A[0];
+assign Y[3] = ((A[1] ^ A[2]) ^ A[3]);
+assign Y[4] = A[1];
+assign Y[5] = A[2];
+assign Y[6] = A[3];
+assign Y[7] = (A[4] ^ A[5]);
+assign Y[8] = A[4];
+assign Y[9] = A[5];
+assign Error[0] = (((Y1[0] ^ Y1[2]) ^ (Y1[4] ^ Y1[6])) ^ Y1[8]);
+assign Error[1] = (((Y1[1] ^ Y1[2]) ^ (Y1[5] ^ Y1[6])) ^ Y1[9]);
+assign Error[2] = ((Y1[4] ^ Y1[3]) ^ (Y1[6] ^ Y1[5]));
+assign Error[3] = ((Y1[8] ^ Y1[7]) ^ Y1[9]);
+endmodule
+
+/*
+test case
+Y1 Error
+0x2E4   0
+0x2E5   0x01
+0x2E6   0x02
+0x2E0   0x03
+0x2EC   0x04
+0x2F4   0x05
+0x2C4   0x06
+0x2A4   0x07
+0x264   0x08
+0x3E4   0x09
+0x0E4    0x0A
+*/</string>
+        </entry>
+        <entry>
+          <string>externalOutputs</string>
+          <string>Y:10,Error:4</string>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>Y1	Error
+0x2E4   0
+0x2E5   0x01
+0x2E6   0x02
+0x2E0   0x03
+0x2EC   0x04
+0x2F4   0x05
+0x2C4   0x06
+0x2A4   0x07
+0x264   0x08
+0x3E4   0x09
+0x0E4   0x0A</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1140" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="720" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y1</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>10</int>
+        </entry>
+      </elementAttributes>
+      <pos x="720" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>10</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Error</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="420"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="1000" y="420"/>
+      <p2 x="1040" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="420"/>
+      <p2 x="800" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="340"/>
+      <p2 x="800" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="380"/>
+      <p2 x="1040" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="340"/>
+      <p2 x="1040" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="340"/>
+      <p2 x="800" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="400"/>
+      <p2 x="800" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="400"/>
+      <p2 x="1000" y="420"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
